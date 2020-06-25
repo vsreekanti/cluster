@@ -194,6 +194,8 @@ def run(self_ip):
             for ip in util.get_pod_ips(client, 'role=scheduler'):
                 ips.keys.append(ip)
 
+            logging.info(f'Responding with {ips}')
+
             list_schedulers_socket.send(ips.SerializeToString())
 
         if (executor_depart_socket in socks and
@@ -271,10 +273,10 @@ def run(self_ip):
 
             # Invoke the configured policy to check system load and respond
             # appropriately.
-            policy.replica_policy(function_frequencies, function_runtimes,
-                                  dag_runtimes, executor_statuses,
-                                  arrival_times)
-            policy.executor_policy(executor_statuses, departing_executors)
+            # policy.replica_policy(function_frequencies, function_runtimes,
+            #                       dag_runtimes, executor_statuses,
+            #                       arrival_times)
+            # policy.executor_policy(executor_statuses, departing_executors)
 
             # Clears all metadata that was passed in for this epoch.
             function_runtimes.clear()
